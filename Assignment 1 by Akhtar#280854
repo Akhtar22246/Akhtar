@@ -1,0 +1,137 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+	double data;
+	node  *next;
+};
+class list
+{
+private:
+	node *head, *tail;
+public:
+	list();
+	void createnode(double vaue);
+	void display();
+	void insert_at_first(double value);
+	void insert_at_position(int pos, double value);
+	void delete_first();
+	void delete_last();
+	void delete_at_position(int pos);
+};
+#include "Linked_list.h"
+
+list::list()
+{
+	head = NULL;
+	tail = NULL;
+}
+
+void list::createnode(double value)
+{
+	node *ptr = new node;
+	ptr->data = value;
+	ptr->next = NULL;
+	if (head == NULL)
+	{
+		head = ptr;
+		tail = ptr;
+		ptr = NULL;
+	}
+	else
+	{
+		tail->next = ptr;
+		tail = ptr;
+	}
+}
+
+
+
+void list::insert_at_first(double value)
+{
+	node *ptr = new node;
+	ptr->data = value;
+	ptr->next = head;
+	head = ptr;
+}
+
+void list::insert_at_position(int pos, double value)
+{
+	node *pre = new node;
+	node *cur = new node;
+	node *ptr = new node;
+	cur = head;
+	for (int i = 1; i < pos; i++)
+	{
+		pre = cur;
+		cur = cur->next;
+	}
+	ptr->data = value;
+	pre->next = ptr;
+	ptr->next = cur;
+}
+
+
+
+void list::delete_last()
+{
+	node *cur = new node;
+	node *pre = new node;
+	cur = head;
+	while (cur->next != NULL)
+	{
+		pre = cur;
+		cur = cur->next;
+	}
+	tail = pre;
+	pre->next = NULL;
+	delete cur;
+}
+
+void list::delete_at_position(int pos)
+{
+	node *cur = new node;
+	node *pre = new node;
+	cur = head;
+	for (int i = 1; i < pos; i++)
+	{
+		pre = cur;
+		cur = cur->next;
+	}
+	pre->next = cur->next;
+}
+#include "Linked_list.h"
+using namespace std;
+int main()
+{
+	list obj;
+
+	obj.createnode(25);
+	obj.createnode(50);
+	obj.createnode(90);
+	obj.createnode(40);
+	obj.createnode(55);
+    cout << "\n -.-.-.-.-Display Nodes-.-.-.-.- \n";
+    obj.display();
+
+	obj.createnode(15);
+	cout << "\n -.-.-.-.-Display Nodes-.-.-.-.- \n";
+	obj.display();
+
+	obj.insert_at_first(10);
+	cout << "\n -.-.-.-.-Display Nodes-.-.-.-.- \n";
+	obj.display();
+
+	obj.delete_first();
+	cout << "\n -.-.-.-.-Display Nodes-.-.-.-.- \n";
+	obj.display();
+
+	obj.delete_last();
+	cout << "\n -.-.-.-.-Display Nodes-.-.-.-.- \n";
+	obj.display();
+
+	
+
+	system("pause");
+	return 0;
+}
